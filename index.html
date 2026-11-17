@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>JEA MUSIC ARCHIVE</title>
+  <style>
+    :root {
+      --bg: #0b0d12;
+      --surface: #131722;
+      --surface-2: #1a2030;
+      --border: rgba(255, 255, 255, 0.08);
+      --text: #eef1f7;
+      --muted: #98a2b3;
+      --accent: #1ed760;
+      --accent-2: #7c5cff;
+      --tag-bg: rgba(124, 92, 255, 0.14);
+      --tag-text: #c6b8ff;
+      --radius: 16px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Pretendard", "Apple SD Gothic Neo", "Noto Sans KR", sans-serif;
+      background:
+        radial-gradient(900px 500px at 15% -10%, rgba(124, 92, 255, 0.16), transparent 60%),
+        radial-gradient(700px 450px at 90% 0%, rgba(30, 215, 96, 0.10), transparent 55%),
+        var(--bg);
+      color: var(--text);
+      line-height: 1.55;
+      min-height: 100vh;
+    }
+
+    .container {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 28px 18px 72px;
+    }
+
+    header {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-bottom: 24px;
+    }
+
+    .eyebrow {
+      font-size: 12px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--accent);
+      font-weight: 700;
+    }
+
+    h1 {
+      font-size: clamp(24px, 4vw, 34px);
+      font-weight: 800;
+      letter-spacing: -0.02em;
+    }
+
+    .subtitle {
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .stats-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 6px;
+    }
+
+    .stat-pill {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      padding: 6px 12px;
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    .stat-pill strong {
+      color: var(--text);
+      margin-left: 4px;
+    }
+
+    .controls {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-bottom: 22px;
+    }
+
+    .search-box {
+      position: relative;
+    }
+
+    .search-box input {
+      width: 100%;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      color: var(--text);
+      padding: 13px 16px;
+      border-radius: 12px;
+      font-size: 15px;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    .search-box input:focus {
+      border-color: var(--accent-2);
+    }
+
+    .search-box input::placeholder {
+      color: #6b7280;
+    }
+
+    .tabs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .tab-btn {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      color: var(--muted);
+      padding: 8px 14px;
+      border-radius: 999px;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.18s;
+    }
+
+    .tab-btn:hover {
+      color: var(--text);
+      border-color: rgba(255, 255, 255, 0.2);
+    }
+
+    .tab-btn.active {
+      background: var(--text);
+      color: #0b0d12;
+      border-color: var(--text);
+    }
+
+    .cards {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 20px;
+      transition: border-color 0.2s;
+    }
+
+    .card:hover {
+      border-color: rgba(255, 255, 255, 0.16);
+    }
+
+    .card-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 10px;
+    }
+
+    .category-badge {
+      font-size: 12px;
+      font-weight: 700;
+      padding: 4px 10px;
+      border-radius: 999px;
+      background: rgba(30, 215, 96, 0.12);
+      color: var(--accent);
+    }
+
+    .meta-date {
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    .card-title {
+      font-size: 20px;
+      font-weight: 750;
+      margin-bottom: 6px;
+      letter-spacing: -0.01em;
+    }
+
+    .card-source {
+      font-size: 13px;
+      color: var(--muted);
+      margin-bottom: 12px;
+    }
+
+    .card-summary {
+      font-size: 14px;
+      color: #d0d7e2;
+      margin-bottom: 14px;
+    }
+
+    .highlights {
+      background: var(--surface-2);
+      border-radius: 12px;
+      padding: 12px 14px;
+      margin-bottom: 14px;
+    }
+
+    .highlights-title {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--muted);
+      margin-bottom: 6px;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+
+    .highlights ul {
+      padding-left: 18px;
+      font-size: 13.5px;
+      color: #dce2ec;
+    }
+
+    .highlights li + li {
+      margin-top: 4px;
+    }
+
+    .tracks-toggle {
+      background: transparent;
+      border: 1px solid var(--border);
+      color: var(--text);
+      padding: 8px 12px;
+      border-radius: 10px;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      margin-bottom: 12px;
+    }
+
+    .tracks-toggle:hover {
+      background: var(--surface-2);
+    }
+
+    .track-list {
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      overflow: hidden;
+      margin-bottom: 14px;
+      display: none;
+    }
+
+    .track-list.open {
+      display: block;
+    }
+
+    .track-row {
+      display: grid;
+      grid-template-columns: 32px 1fr auto;
+      gap: 10px;
+      align-items: center;
+      padding: 9px 14px;
+      font-size: 13.5px;
+      border-top: 1px solid var(--border);
+    }
+
+    .track-row:first-child {
+      border-top: none;
+    }
+
+    .track-no {
+      color: var(--muted);
+      font-variant-numeric: tabular-nums;
+      font-size: 12px;
+    }
+
+    .track-main {
+      min-width: 0;
+    }
+
+    .track-name {
+      font-weight: 600;
+      color: var(--text);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .track-artist {
+      font-size: 12px;
+      color: var(--muted);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .track-dur {
+      font-size: 12px;
+      color: var(--muted);
+      font-variant-numeric: tabular-nums;
+    }
+
+    .tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-bottom: 16px;
+    }
+
+    .tag {
+      font-size: 12px;
+      padding: 4px 9px;
+      border-radius: 8px;
+      background: var(--tag-bg);
+      color: var(--tag-text);
+      cursor: pointer;
+    }
+
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .btn-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 9px 14px;
+      border-radius: 10px;
+      font-size: 13px;
+      font-weight: 700;
+      text-decoration: none;
+      transition: opacity 0.18s;
+    }
+
+    .btn-link:hover {
+      opacity: 0.88;
+    }
+
+    .btn-spotify {
+      background: var(--accent);
+      color: #08120c;
+    }
+
+    .btn-insta {
+      background: var(--surface-2);
+      color: var(--text);
+      border: 1px solid var(--border);
+    }
+
+    .empty-state {
+      text-align: center;
+      padding: 44px 20px;
+      background: var(--surface);
+      border: 1px dashed var(--border);
+      border-radius: var(--radius);
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .empty-state strong {
+      display: block;
+      color: var(--text);
+      font-size: 16px;
+      margin-bottom: 6px;
+    }
+
+    @media (max-width: 600px) {
+      .card {
+        padding: 16px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <div class="eyebrow">Personal Music &amp; DJ Knowledge Base</div>
+      <h1 id="site-title">JEA MUSIC ARCHIVE</h1>
+      <p class="subtitle" id="site-subtitle">디제잉 스킬 · 전자음악 행사 · 트랙 큐레이션 · 곡 트렌드</p>
+      <div class="stats-row" id="stats-row"></div>
+    </header>
+
+    <section class="controls">
+      <div class="search-box">
+        <input id="search-input" type="search" placeholder="제목, 아티스트, 태그, 내용 검색..." />
+      </div>
+      <div class="tabs" id="category-tabs"></div>
+    </section>
+
+    <main class="cards" id="cards-container"></main>
+  </div>
+
+  <script>
+    const CATEGORIES = ["전체", "디제잉 스킬", "행사 · 축제", "트랙 큐레이션", "곡 트렌드"];
+    const FALLBACK_DATA = {
+      title: "JEA MUSIC ARCHIVE",
+      subtitle: "디제잉 스킬 · 전자음악 행사 · 트랙 큐레이션 · 곡 트렌드",
+      updatedAt: "2026-11-18",
+      items: [
+        {
+          id: "digging-20261118-01",
+          category: "트랙 큐레이션",
+          title: "잠깐의 시간을 빼앗을 음악들",
+          sourceHandle: "@diggingmusicplace",
+          sourceUrl: "https://www.instagram.com/p/DfXHgJ7k4ba/",
+          spotifyUrl: "https://open.spotify.com/playlist/5sOJw09ci6WiVBLI3QGnOB",
+          savedDate: "2026-11-18",
+          postedDate: "2026-11-05",
+          tags: ["재즈펑크", "브라질리언", "소울", "부기", "디깅", "스포티파이연동"],
+          summary: "시대와 국가를 가리지 않고 짧은 순간에도 새로운 감각과 오래 남는 여운을 주는 13곡 큐레이션. 재즈·소울·브라질리언 그루브·일본 크로스오버까지 폭넓게 엮은 선곡 리스트.",
+          highlights: [
+            "13곡 전원 스포티파이 플레이리스트 등록 완료 (총 1시간 5분)",
+            "Xantoné Blacq의 Platinum Remix, Shuya Okino 원곡(feat. Clara Hill), Bobbi Humphrey의 Fancy Dancer 수록곡 등 디제잉 셋 오프닝·미드셋에 어울리는 그루브 중심 구성"
+          ],
+          tracks: [
+            { no: 1, title: "Search for the Sun - Platinum Remix", artist: "Xantoné Blacq", duration: "5:22" },
+            { no: 2, title: "Debora", "artist": "Altay Veloso", duration: "4:33" },
+            { no: 3, title: "What I Feel", artist: "Boy Katindig", duration: "4:45" },
+            { no: 4, title: "Late At Night", artist: "LAVA", duration: "3:01" },
+            { no: 5, title: "Love Life Wisdom", artist: "Indra Lesmana, LLW, Dira Sugandi", duration: "7:21" },
+            { no: 6, title: "The Sound Of Music", artist: "Dayton", duration: "5:41" },
+            { no: 7, title: "Wings (Asas)", artist: "Flora Purim", duration: "3:12" },
+            { no: 8, title: "Ti i Ya", artist: "mama13", duration: "3:34" },
+            { no: 9, title: "IF IT IS LOVE feat. CLARA HILL", artist: "Shuya Okino, CLARA HILL", duration: "7:28" },
+            { no: 10, title: "Fullgás", artist: "Marina Lima", duration: "4:07" },
+            { no: 11, title: "it's you", artist: "Sunaga t Experience", duration: "5:39" },
+            { no: 12, title: "Searchin' For The Soul", artist: "Corky McClerkin", duration: "5:21" },
+            { no: 13, title: "The Trip", artist: "Bobbi Humphrey", duration: "5:39" }
+          ]
+        }
+      ]
+    };
+
+    let archiveData = FALLBACK_DATA;
+    let activeCategory = "전체";
+    let searchQuery = "";
+
+    function escapeHtml(str) {
+      return String(str ?? "")
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#39;");
+    }
+
+    function renderStats() {
+      const total = archiveData.items.length;
+      const trackTotal = archiveData.items.reduce((sum, item) => sum + (item.tracks ? item.tracks.length : 0), 0);
+      document.getElementById("stats-row").innerHTML = `
+        <span class="stat-pill">저장 문서 <strong>${total}건</strong></span>
+        <span class="stat-pill">연동 트랙 <strong>${trackTotal}곡</strong></span>
+        <span class="stat-pill">마지막 업데이트 <strong>${escapeHtml(archiveData.updatedAt)}</strong></span>
+      `;
+    }
+
+    function renderTabs() {
+      const container = document.getElementById("category-tabs");
+      container.innerHTML = CATEGORIES.map(cat => {
+        const count = cat === "전체"
+          ? archiveData.items.length
+          : archiveData.items.filter(i => i.category === cat).length;
+        return `<button class="tab-btn ${activeCategory === cat ? "active" : ""}" data-cat="${escapeHtml(cat)}">${escapeHtml(cat)} (${count})</button>`;
+      }).join("");
+
+      container.querySelectorAll(".tab-btn").forEach(btn => {
+        btn.addEventListener("click", () => {
+          activeCategory = btn.dataset.cat;
+          renderTabs();
+          renderCards();
+        });
+      });
+    }
+
+    function matchesQuery(item, q) {
+      if (!q) return true;
+      const lower = q.toLowerCase();
+      const haystack = [
+        item.title,
+        item.category,
+        item.sourceHandle,
+        item.summary,
+        ...(item.tags || []),
+        ...(item.highlights || []),
+        ...(item.tracks || []).map(t => `${t.title} ${t.artist}`)
+      ].join(" ").toLowerCase();
+      return haystack.includes(lower);
+    }
+
+    function renderCards() {
+      const container = document.getElementById("cards-container");
+      const filtered = archiveData.items.filter(item => {
+        const catOk = activeCategory === "전체" || item.category === activeCategory;
+        return catOk && matchesQuery(item, searchQuery);
+      });
+
+      if (filtered.length === 0) {
+        container.innerHTML = `
+          <div class="empty-state">
+            <strong>아직 이 카테고리에 정리된 문서가 없어요</strong>
+            인스타그램 피드 링크를 쿠루에게 보내주시면 자동으로 분류·구조화해 여기에 추가해 드립니다.
+          </div>
+        `;
+        return;
+      }
+
+      container.innerHTML = filtered.map((item, idx) => {
+        const hasTracks = Array.isArray(item.tracks) && item.tracks.length > 0;
+        const tracksId = `tracks-${idx}`;
+        return `
+          <article class="card">
+            <div class="card-top">
+              <span class="category-badge">${escapeHtml(item.category)}</span>
+              <span class="meta-date">저장 ${escapeHtml(item.savedDate)}${item.postedDate ? ` · 원글 ${escapeHtml(item.postedDate)}` : ""}</span>
+            </div>
+            <h2 class="card-title">${escapeHtml(item.title)}</h2>
+            <div class="card-source">출처 ${escapeHtml(item.sourceHandle || "Instagram")}</div>
+            <p class="card-summary">${escapeHtml(item.summary)}</p>
+
+            ${item.highlights && item.highlights.length ? `
+              <div class="highlights">
+                <div class="highlights-title">핵심 정리</div>
+                <ul>
+                  ${item.highlights.map(h => `<li>${escapeHtml(h)}</li>`).join("")}
+                </ul>
+              </div>
+            ` : ""}
+
+            ${hasTracks ? `
+              <button class="tracks-toggle" data-target="${tracksId}">수록곡 ${item.tracks.length}곡 펼쳐보기 ▾</button>
+              <div class="track-list" id="${tracksId}">
+                ${item.tracks.map(t => `
+                  <div class="track-row">
+                    <span class="track-no">${t.no}</span>
+                    <div class="track-main">
+                      <div class="track-name">${escapeHtml(t.title)}</div>
+                      <div class="track-artist">${escapeHtml(t.artist)}</div>
+                    </div>
+                    <span class="track-dur">${escapeHtml(t.duration || "")}</span>
+                  </div>
+                `).join("")}
+              </div>
+            ` : ""}
+
+            ${item.tags && item.tags.length ? `
+              <div class="tags">
+                ${item.tags.map(tag => `<span class="tag" data-tag="${escapeHtml(tag)}">#${escapeHtml(tag)}</span>`).join("")}
+              </div>
+            ` : ""}
+
+            <div class="actions">
+              ${item.spotifyUrl ? `<a class="btn-link btn-spotify" href="${escapeHtml(item.spotifyUrl)}" target="_blank" rel="noopener noreferrer">Spotify 플레이리스트 열기</a>` : ""}
+              ${item.sourceUrl ? `<a class="btn-link btn-insta" href="${escapeHtml(item.sourceUrl)}" target="_blank" rel="noopener noreferrer">원본 인스타 피드</a>` : ""}
+            </div>
+          </article>
+        `;
+      }).join("");
+
+      container.querySelectorAll(".tracks-toggle").forEach(btn => {
+        btn.addEventListener("click", () => {
+          const el = document.getElementById(btn.dataset.target);
+          const isOpen = el.classList.toggle("open");
+          btn.textContent = btn.textContent.replace(isOpen ? "펼쳐보기 ▾" : "접기 ▴", isOpen ? "접기 ▴" : "펼쳐보기 ▾");
+        });
+      });
+
+      container.querySelectorAll(".tag").forEach(tagEl => {
+        tagEl.addEventListener("click", () => {
+          searchQuery = tagEl.dataset.tag;
+          document.getElementById("search-input").value = searchQuery;
+          renderCards();
+        });
+      });
+    }
+
+    async function init() {
+      try {
+        const res = await fetch("./data/archive.json");
+        if (res.ok) {
+          archiveData = await res.json();
+        }
+      } catch (e) {
+        // Fallback to embedded data
+      }
+      document.getElementById("site-title").textContent = archiveData.title || "JEA MUSIC ARCHIVE";
+      document.getElementById("site-subtitle").textContent = archiveData.subtitle || "";
+      renderStats();
+      renderTabs();
+      renderCards();
+
+      document.getElementById("search-input").addEventListener("input", e => {
+        searchQuery = e.target.value.trim();
+        renderCards();
+      });
+    }
+
+    init();
+  </script>
+</body>
+</html>

@@ -1,0 +1,38 @@
+{
+  "title": "JEA MUSIC ARCHIVE",
+  "subtitle": "디제잉 스킬 · 전자음악 행사 · 트랙 큐레이션 · 곡 트렌드",
+  "updatedAt": "2026-11-18",
+  "items": [
+    {
+      "id": "digging-20261118-01",
+      "category": "트랙 큐레이션",
+      "title": "잠깐의 시간을 빼앗을 음악들",
+      "sourceHandle": "@diggingmusicplace",
+      "sourceUrl": "https://www.instagram.com/p/DfXHgJ7k4ba/",
+      "spotifyUrl": "https://open.spotify.com/playlist/5sOJw09ci6WiVBLI3QGnOB",
+      "savedDate": "2026-11-18",
+      "postedDate": "2026-11-05",
+      "tags": ["재즈펑크", "브라질리언", "소울", "부기", "디깅", "스포티파이연동"],
+      "summary": "시대와 국가를 가리지 않고 짧은 순간에도 새로운 감각과 오래 남는 여운을 주는 13곡 큐레이션. 재즈·소울·브라질리언 그루브·일본 크로스오버까지 폭넓게 엮은 선곡 리스트.",
+      "highlights": [
+        "13곡 전원 스포티파이 플레이리스트 등록 완료 (총 1시간 5분)",
+        "Xantoné Blacq의 Platinum Remix, Shuya Okino 원곡(feat. Clara Hill), Bobbi Humphrey의 Fancy Dancer 수록곡 등 디제잉 셋 오프닝·미드셋에 어울리는 그루브 중심 구성"
+      ],
+      "tracks": [
+        { "no": 1, "title": "Search for the Sun - Platinum Remix", "artist": "Xantoné Blacq", "duration": "5:22" },
+        { "no": 2, "title": "Debora", "artist": "Altay Veloso", "duration": "4:33" },
+        { "no": 3, "title": "What I Feel", "artist": "Boy Katindig", "duration": "4:45" },
+        { "no": 4, "title": "Late At Night", "artist": "LAVA", "duration": "3:01" },
+        { "no": 5, "title": "Love Life Wisdom", "artist": "Indra Lesmana, LLW, Dira Sugandi", "duration": "7:21" },
+        { "no": 6, "title": "The Sound Of Music", "artist": "Dayton", "duration": "5:41" },
+        { "no": 7, "title": "Wings (Asas)", "artist": "Flora Purim", "duration": "3:12" },
+        { "no": 8, "title": "Ti i Ya", "artist": "mama13", "duration": "3:34" },
+        { "no": 9, "title": "IF IT IS LOVE feat. CLARA HILL", "artist": "Shuya Okino, CLARA HILL", "duration": "7:28" },
+        { "no": 10, "title": "Fullgás", "artist": "Marina Lima", "duration": "4:07" },
+        { "no": 11, "title": "it's you", "artist": "Sunaga t Experience", "duration": "5:39" },
+        { "no": 12, "title": "Searchin' For The Soul", "artist": "Corky McClerkin", "duration": "5:21" },
+        { "no": 13, "title": "The Trip", "artist": "Bobbi Humphrey", "duration": "5:39" }
+      ]
+    }
+  ]
+}
