@@ -4,6 +4,24 @@
   "updatedAt": "2026-11-18",
   "items": [
     {
+      "id": "djdlight-20261118-02",
+      "category": "디제잉 스킬",
+      "title": "2시간 디깅을 15분으로 줄이는 방법 (CRATES)",
+      "sourceHandle": "@djd_light × @placebo.studio",
+      "sourceUrl": "https://www.instagram.com/reel/Deypuh6vGAJ/",
+      "siteUrl": "https://crates.co/",
+      "savedDate": "2026-11-18",
+      "postedDate": "2026-10-22",
+      "tags": ["디깅", "비트포트", "CRATES", "스포티파이연동", "워크플로우"],
+      "summary": "비트포트(Beatport) 계정을 연동해 디깅 시간을 대폭 줄여주는 웹 도구 CRATES(crates.co) 활용법. 키보드 단축키 기반 초고속 프리뷰와 스포티파이 플레이리스트 자동 매칭 기능이 핵심.",
+      "highlights": [
+        "Beatport 계정 연동: 장바구니·크레이트·팔로우 아티스트/레이블이 비트포트와 그대로 동기화됨",
+        "단축키 초고속 디깅: Space(재생) / ↓(다음 곡) / →(구간 스킵) / F(유튜브 풀버전 듣기) / D(Dig Deeper 연관 트랙 탐색)",
+        "Spotify 플레이리스트 연동: 좌측 메뉴 Add Playlist에 Spotify 플레이리스트 URL·ID를 넣으면 비트포트 음원을 자동 매칭해 바로 구매·디깅 가능",
+        "Preview Memory: 이미 들어본 트랙을 자동 체크해 중복 청취 시간 절약"
+      ]
+    },
+    {
       "id": "digging-20261118-01",
       "category": "트랙 큐레이션",
       "title": "잠깐의 시간을 빼앗을 음악들",
